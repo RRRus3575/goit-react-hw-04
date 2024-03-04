@@ -4,10 +4,10 @@ import "./App.css";
 import LoadMoreBtn from "./components/LoadMoreBtn";
 import getAPI from "./components/API";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
-import ImageModal from "./components/ImageModal";
+import ImageModal from "./components/ImageMod/ImageModal";
 import SearchBar from "./components/SearchBar";
 import Loader from "./components/Loader";
-import ErrorMessage from "./components/ErrorMessage ";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage ";
 
 export const App = () => {
   const [data, setData] = useState([]);
