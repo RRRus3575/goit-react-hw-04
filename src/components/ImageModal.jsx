@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const Modal = ({ modalClosed, img }) => {
+const ImageModal = ({ modalClosed, img }) => {
   const modalClose = (e) => {
     if (e.target.getAttribute("class") === "overlay") {
       modalClosed();
@@ -30,4 +30,4 @@ const Modal = ({ modalClosed, img }) => {
   );
 };
 
-export default Modal;
+export default ImageModal;

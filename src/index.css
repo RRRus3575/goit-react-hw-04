@@ -28,18 +28,7 @@ input {
 .notification {
   font-size: 22px;
 }
-ul {
-  list-style: none;
-  padding: 0 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-ul > li {
-  width: calc((100% - 60px) / 4);
-}
+
 img {
   width: 100%;
   height: 350px;

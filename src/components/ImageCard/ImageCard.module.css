@@ -1,0 +1,9 @@
+.item {
+  width: calc((100% - 60px) / 4);
+  cursor: pointer;
+  transition: transform 300ms linear;
+}
+.item:hover,
+.item:focus {
+  transform: scale(1.1);
+}

@@ -1,4 +1,4 @@
-const Button = ({ click }) => {
+const LoadMoreBtn = ({ click }) => {
   return (
     <button onClick={click} className="Button">
       Load More
@@ -6,4 +6,4 @@ const Button = ({ click }) => {
   );
 };
 
-export default Button;
+export default LoadMoreBtn;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 import "./App.css";
-import Button from "./components/Button";
+import LoadMoreBtn from "./components/LoadMoreBtn";
 import getAPI from "./components/API";
-import Render from "./components/renderElements";
-import Modal from "./components/modal";
-import Form from "./components/Form";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import ImageModal from "./components/ImageModal";
+import SearchBar from "./components/SearchBar";
 import Loader from "./components/Loader";
 
 export const App = () => {
@@ -29,7 +29,7 @@ export const App = () => {
     setPage((prev) => prev + 1);
   };
 
-  const itemClick = (e) => {
+  const openModal = (e) => {
     setImgLarge(e.target.getAttribute("srcSet"));
     setIsActive(true);
   };
@@ -66,9 +66,9 @@ export const App = () => {
 
   return (
     <div className="container">
-      <Form submitForm={submitForm} />
+      <SearchBar submitForm={submitForm} />
 
-      {isActive && <Modal img={imgLarge} modalClosed={modalClose} />}
+      {isActive && <ImageModal img={imgLarge} modalClosed={modalClose} />}
 
       {isEmpty && (
         <p className="notification">
@@ -76,9 +76,9 @@ export const App = () => {
           value😞
         </p>
       )}
-      {data.length > 0 && <Render data={data} click={itemClick} />}
+      {data.length > 0 && <ImageGallery data={data} openModal={openModal} />}
       {loading && <Loader />}
-      {totalPages > page && <Button click={buttonClick} />}
+      {totalPages > page && <LoadMoreBtn click={buttonClick} />}
     </div>
   );
 };

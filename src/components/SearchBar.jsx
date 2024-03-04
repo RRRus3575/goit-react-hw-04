@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Form = ({ submitForm }) => {
+const SearchBar = ({ submitForm }) => {
   const [inputText, setInputText] = useState("");
 
   const handleSubmit = (e) => {
@@ -25,4 +25,4 @@ const Form = ({ submitForm }) => {
   );
 };
 
-export default Form;
+export default SearchBar;
