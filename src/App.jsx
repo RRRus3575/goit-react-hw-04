@@ -7,6 +7,7 @@ import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal";
 import SearchBar from "./components/SearchBar";
 import Loader from "./components/Loader";
+import ErrorMessage from "./components/ErrorMessage ";
 
 export const App = () => {
   const [data, setData] = useState([]);
@@ -17,6 +18,7 @@ export const App = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [imgLarge, setImgLarge] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
+  const [error, setError] = useState("");
 
   const submitForm = (text) => {
     setSearch(text);
@@ -42,6 +44,7 @@ export const App = () => {
     async function getttingAPI() {
       try {
         setLoading(true);
+        setError("");
 
         const data = await getAPI(search, page);
         console.log(data.results);
@@ -54,7 +57,7 @@ export const App = () => {
         setTotalPages(Math.ceil(data.total / 12));
         setIsEmpty(false);
       } catch (error) {
-        console.log(error);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -70,12 +73,7 @@ export const App = () => {
 
       {isActive && <ImageModal img={imgLarge} modalClosed={modalClose} />}
 
-      {isEmpty && (
-        <p className="notification">
-          Nothing was found for this query, please try entering a different
-          value😞
-        </p>
-      )}
+      {error || (isEmpty && <ErrorMessage />)}
       {data.length > 0 && <ImageGallery data={data} openModal={openModal} />}
       {loading && <Loader />}
       {totalPages > page && <LoadMoreBtn click={buttonClick} />}
