@@ -4,7 +4,9 @@ import css from "./ImageGallery.module.css";
 const ImageGallery = ({ data, openModal }) => {
   return (
     <ul className={css.list}>
-      <ImageCard data={data} openModal={openModal} />
+      {data.map((el) => (
+        <ImageCard el={el} openModal={openModal} key={el.id} />
+      ))}
     </ul>
   );
 };

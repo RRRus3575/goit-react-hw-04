@@ -1,11 +1,7 @@
 import css from "./ErrorMessage.module.css";
 
-const ErrorMessage = () => {
-  return (
-    <p className={css.notification}>
-      Nothing was found for this query, please try entering a different value😞
-    </p>
-  );
+const ErrorMessage = ({ error }) => {
+  return <p className={css.notification}>{error}</p>;
 };
 
 export default ErrorMessage;

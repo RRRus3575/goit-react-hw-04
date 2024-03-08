@@ -12,19 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-form {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70px;
-  background-color: #4354b0;
-}
-input {
-  width: 400px;
-  height: 40px;
-  font-size: 21px;
-}
 
 img {
   width: 100%;

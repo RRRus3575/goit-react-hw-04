@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  padding-top: 20px;
+  height: 100px;
+  background-color: #4354b0;
+}
+.searchInput {
+  width: 400px;
+  height: 32px;
+  font-size: 21px;
+}
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+}

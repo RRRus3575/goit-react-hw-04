@@ -4,8 +4,8 @@ import "./App.css";
 import LoadMoreBtn from "./components/LoadMoreBtn";
 import getAPI from "./components/API";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
-import ImageModal from "./components/ImageMod/ImageModal";
-import SearchBar from "./components/SearchBar";
+import ImageModal from "./components/ImageModal/ImageModal";
+import SearchBar from "./components/SearchBar/SearchBar";
 import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage ";
 
@@ -41,7 +41,7 @@ export const App = () => {
   };
 
   useEffect(() => {
-    async function getttingAPI() {
+    async function gettingAPI() {
       try {
         setLoading(true);
         setError("");
@@ -52,18 +52,17 @@ export const App = () => {
           setIsEmpty(true);
           return;
         }
-
         setData((prev) => [...prev, ...data.results]);
         setTotalPages(Math.ceil(data.total / 12));
         setIsEmpty(false);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     }
     if (search.length > 0) {
-      getttingAPI();
+      gettingAPI();
     }
   }, [search, page]);
 
@@ -72,8 +71,13 @@ export const App = () => {
       <SearchBar submitForm={submitForm} />
 
       {isActive && <ImageModal img={imgLarge} modalClosed={modalClose} />}
-
-      {error || (isEmpty && <ErrorMessage />)}
+      {isEmpty && (
+        <p>
+          Nothing was found for this query, please try entering a different
+          value😞
+        </p>
+      )}
+      {error || <ErrorMessage error={error} />}
       {data.length > 0 && <ImageGallery data={data} openModal={openModal} />}
       {loading && <Loader />}
       {totalPages > page && <LoadMoreBtn click={buttonClick} />}

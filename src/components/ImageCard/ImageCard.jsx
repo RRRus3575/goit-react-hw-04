@@ -1,7 +1,7 @@
 import css from "./ImageCard.module.css";
 
-const ImageCard = ({ data, openModal }) => {
-  return data.map((el) => (
+const ImageCard = ({ el, openModal }) => {
+  return (
     <li key={el.id} onClick={openModal} className={css.item}>
       <img
         src={el.urls.fall}
@@ -9,7 +9,7 @@ const ImageCard = ({ data, openModal }) => {
         alt={el.tags.map((el) => el.title)}
       />
     </li>
-  ));
+  );
 };
 
 export default ImageCard;
