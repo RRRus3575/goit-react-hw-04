@@ -3,7 +3,8 @@ import css from "./ImageModal.module.css";
 
 const ImageModal = ({ modalClosed, img }) => {
   const modalClose = (e) => {
-    if (e.target.getAttribute("class") === "overlay") {
+    if (e.target.getAttribute("id") === "overlay") {
+      console.log("click");
       modalClosed();
     }
   };
@@ -23,7 +24,7 @@ const ImageModal = ({ modalClosed, img }) => {
   }, [modalClosed]);
 
   return (
-    <div className={css.overlay} onClick={modalClose}>
+    <div className={css.overlay} onClick={modalClose} id="overlay">
       <div className={css.modal}>
         <img src={img} />
       </div>

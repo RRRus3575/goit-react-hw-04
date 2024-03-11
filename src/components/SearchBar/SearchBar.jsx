@@ -3,20 +3,16 @@ import css from "./SearchBar.module.css";
 
 const SearchBar = ({ submitForm }) => {
   const [inputText, setInputText] = useState("");
-  const [isEmpty, setIsEmpty] = useState(false);
 
   const handleSubmit = (e) => {
+    console.log("submit");
     e.preventDefault();
-    setIsEmpty(false);
-    if (inputText.length < 1) {
-      setIsEmpty(true);
-      return;
-    }
+
     submitForm(inputText);
   };
 
   const handleChange = (e) => {
-    setInputText(e.target.value);
+    setInputText(e.target.value.trim());
   };
 
   return (
@@ -28,11 +24,6 @@ const SearchBar = ({ submitForm }) => {
         onChange={handleChange}
         className={css.searchInput}
       />
-      {isEmpty && (
-        <p className={css.text}>
-          Empty row, please enter data in the search field
-        </p>
-      )}
     </form>
   );
 };

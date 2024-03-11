@@ -8,6 +8,8 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Loader from "./components/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage ";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
   const [data, setData] = useState([]);
@@ -20,7 +22,24 @@ export const App = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [error, setError] = useState("");
 
+  const notify = () =>
+    toast.warning("Empty row, please enter data in the search field", {
+      position: "top-right",
+      autoClose: 5000,
+      closeOnClick: true,
+    });
+
   const submitForm = (text) => {
+    console.log("submitApp", text.length);
+    setIsEmpty(false);
+    if (text.length < 1) {
+      notify();
+      console.log("submitAppIf", text.length);
+      setIsEmpty(true);
+
+      return;
+    }
+
     setSearch(text);
     setData([]);
     setPage(1);
@@ -49,12 +68,10 @@ export const App = () => {
         const data = await getAPI(search, page);
         console.log(data.results);
         if (data.results.length < 1) {
-          setIsEmpty(true);
           return;
         }
         setData((prev) => [...prev, ...data.results]);
         setTotalPages(Math.ceil(data.total / 12));
-        setIsEmpty(false);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -67,21 +84,25 @@ export const App = () => {
   }, [search, page]);
 
   return (
-    <div className="container">
-      <SearchBar submitForm={submitForm} />
+    <>
+      {isEmpty && <ToastContainer />}
+      <div className="container">
+        <SearchBar submitForm={submitForm} />
 
-      {isActive && <ImageModal img={imgLarge} modalClosed={modalClose} />}
-      {isEmpty && (
-        <p>
-          Nothing was found for this query, please try entering a different
-          value😞
-        </p>
-      )}
-      {error || <ErrorMessage error={error} />}
-      {data.length > 0 && <ImageGallery data={data} openModal={openModal} />}
-      {loading && <Loader />}
-      {totalPages > page && <LoadMoreBtn click={buttonClick} />}
-    </div>
+        {isActive && <ImageModal img={imgLarge} modalClosed={modalClose} />}
+
+        {data.length < 1 && !isEmpty && (
+          <p>
+            Nothing was found for this query, please try entering a different
+            value😞
+          </p>
+        )}
+        {error && <ErrorMessage error={error} />}
+        {data.length > 0 && <ImageGallery data={data} openModal={openModal} />}
+        {loading && <Loader />}
+        {totalPages > page && <LoadMoreBtn click={buttonClick} />}
+      </div>
+    </>
   );
 };
 
